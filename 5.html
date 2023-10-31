@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+</head>
+<body>
+<h1>Butterflies, a colorful reflection of biodiversity loss</h1>
+<br>
+<!-- COPIAR A PARTIR DAQUI -->
+    
+<link rel="stylesheet" type="text/css" href="https://static.publicocdn.com/infografia/estilos/estilo-infografia.css?v99">
+    
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    
+
+<style>
+    @media print, screen and (min-width: 64em) {
+ 
+.story__headline {
+    font-size: 46px;
+    line-height: 48px;
+    margin-bottom: .5rem;
+}
+    }
+    .layout--longform-full .story .lead, .layout--longform-vertical .story .lead {
+    margin-bottom: 1rem;
+}
+    
+    @media print, screen and (min-width: 40em) {
+        .layout--longform-full .story__intro {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0, transparent), color-stop(15%, rgba(255, 255, 255, 0.25)), color-stop(33%, rgba(255, 255, 255,0.60)));
+            background: linear-gradient(to bottom, transparent 0, rgba(255, 255, 255,0) 65%, rgba(255, 255, 255,1) 100%);
+            }
+
+        .layout--longform-full .story__header .story__media {
+            height: 45rem;
+        }
+    }
+    
+    .layout--longform-full .story .dateline{color: #363636;}
+    
+    .story__intro .dateline:before{
+        content: "\2022";
+        display: inline-block;
+        font-size: 8px;
+        vertical-align: middle;
+        margin: 0 .25rem;
+    }
+    
+    .flex-media iframe, .flex-media object, .flex-media embed, .flex-media video, .flex-media img {
+        position: absolute;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        max-width:none;
+        width:100%;
+        height: auto;
+        margin-top:0px;
+        margin-bottom: 0px;
+    }
+    
+    .layout--longform .story__content {max-width: none;}
+    
+    .layout--longform-full .story .byline__author, .layout--longform-full .story .dateline, .layout--longform-vertical .story .byline__author, .layout--longform-vertical .story .dateline {
+    color: #7c7c7c;
+}
+    
+    .social-tools{z-index: 955;}
+    
+    .layout--longform-full .story__meta {
+        margin-top: 1.75rem;
+        z-index: 955;
+}
+    
+    .layout--longform .story__meta {
+        z-index: 955;
+        float: right;}
+    
+    .infog-subtitulo-a { 
+        font-size: 16px;
+        color: #6a6a6a;
+        margin-bottom: 10px;
+        margin-top: 10px;
+}
+
+    .linha-infog{ 
+        border-top: 3px solid black;
+        width: 25px;
+        display: inline-block;
+        margin: auto;
+        padding-bottom: 4px;
+        margin-right: 5px;
+    }
+                
+	.mapa{
+        max-width: 700px;
+		margin: 0 auto;
+    }
+    
+       #map {
+        position: relative;
+        text-align: left;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 80vh;
+    }
+    
+    
+        .mapboxgl-map {
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+        font-size: 14px;
+    }
+
+    .mapboxgl-popup-content{
+        width: 260px;
+    }
+
+    
+.infog-dois-graficos {
+    display: inline-table;
+    margin: 1%;
+}
+    
+.infog-entrada {
+    font-size: 17px;
+    color: #454545;
+    max-width: 750px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+    
+    .nome{
+        max-width: 300px;
+        margin: 0 auto;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 0;
+        margin-top: 5px;
+        color: #8a8a8a;
+    }
+    
+.mais-info{
+    padding: 2px 4px 7px 4px;
+    border-radius: 50%;
+    background-color: #c72b2b;
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    line-height: 13px;
+    font-weight: 800;
+    font-size: 20px;
+}
+    
+.circulo-infog {
+    height: 12px;
+    width: 12px;
+    margin-right: 4px;
+    border-radius: 0%;
+    display: inline-block;
+} 
+    
+.legenda-infog {
+    margin: 2px 5px;
+    width: auto;
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+}
+    .infog-entrada a{
+        line-height: inherit;
+        color: #16908c;
+        cursor: pointer;
+        border-bottom: solid 1px lightgray;
+        
+    }    
+    
+    .texto-icones a{
+        line-height: inherit;
+        color: #16908c;
+
+        cursor: pointer;
+        border-bottom: solid 1px lightgray;
+        
+    }
+    
+    #ficha-tecnica a {color: gray;}
+    
+    .antenas{
+        top: 36%;
+        left: 90%;
+    }
+    
+    .espirotromba{
+        top: 48%;
+        left: 80%;
+    }
+    
+    .borboleta-total{
+        position: absolute;
+        left: 50%;
+        margin-left: -225px;
+    }
+    
+
+    .infog-dois-graficos img {
+        max-width: 400px;
+        margin: 0px;
+}
+    
+    .camuflagem{
+        width: 100%;
+    }
+
+    .clubes-blocos img{
+        margin: 0.5px;
+        width: 150px;
+    }      
+    
+    .clubes-blocos img:hover{
+        transform: scale(1.5);
+        border: 0px solid #ff8a00;
+        transition: 0.2s ease-in-out;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }    
+    
+    
+    .clubes-blocos{
+        max-width: 1550px;
+        display: inline-table;
+        margin-bottom: 50px;
+    }
+    
+    .icones-gee{
+        width: 350px;
+        display: inline-table;
+        margin: 7px;
+        background-color: #f5f5f5;
+        padding: 15px;
+        height:550px;
+        height:550px; 
+    }    
+    
+    .icones-gee img{
+        width: 90%;
+
+    }
+    
+    .texto-icones{
+        font-size: 15px;
+        margin-bottom: 10px;
+        line-height: 22px;
+    }
+    
+    .buraco-video{
+        height: 40vw;
+    }
+    
+    
+/* parallax*/  
+    .texto-parallax{
+        margin: 0;
+        width: 880px;
+        height: 75vh;
+        line-height: 26px;
+        padding: 25px 25px 2px 35px;
+        text-align: left;
+        background: rgb(0,0,0);
+        background: linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 60%, rgba(0,0,0,0.9) 100%);
+
+    } 
+    
+    .texto-parallax p{
+        max-width: 450px;
+        margin-left: 0px;
+    }
+        
+    
+    .parallax {
+        display: none;
+        background-color: #dbdbdb;
+        /* The image used */
+        background-image: url("https://static.publicocdn.com/Multimedia/Infografias/342/img/production_ID_4977160.mp4");
+
+        /* Set a specific height */
+        min-height: 100vh;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: fixed;
+        z-index: 1;
+        top: 0%;
+    }        
+    
+    .parallax1 {
+        background-color: #dbdbdb;
+        /* The image used */
+        background-image: url("https://static.publicocdn.com/Multimedia/Infografias/342/img/RTXXEM2.jpg");
+
+        /* Set a specific height */
+        min-height: 75vh;
+  
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }    
+    
+    
+    .parallax2 {
+        background-color: #dbdbdb;
+        /* The image used */
+        background-image: url("https://static.publicocdn.com/Multimedia/Infografias/342/img/Large%20Blue.jpg?v1");
+
+        /* Set a specific height */
+        min-height: 75vh;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    .parallax video{
+        position: fixed;
+        width: 100%;
+        max-width: none;
+        margin: 0px;
+    }
+
+
+   
+.tooltipster-follower .tooltipster-box{
+    background:#565656;
+    border:2px solid #000;
+}
+
+.tooltipster-follower .tooltipster-content{
+    overflow: hidden;
+    color:#2f2f2f;
+    line-height:20px;
+    padding:6px 14px; 
+    width: auto;
+    height: auto;
+  
+    font-size: 15px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+    font-weight: 400;
+    }
+
+.tooltipster-follower.tooltipster-borderless .tooltipster-box{
+    border:none;
+    background:#1b1b1b;
+    background:rgba(255, 255, 255, 0.9)}
+
+    
+.tooltipster-follower.tooltipster-borderless::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent; 
+}
+    
+    
+    
+    @media only screen 
+        and (min-device-width : 768px) 
+        and (max-device-width : 1024px) 
+        and (orientation : landscape) { 
+    
+        .flex-media iframe, .flex-media object, .flex-media embed, .flex-media video, .flex-media img{
+        max-width:none; width:auto; height: 100%; margin-top: 0px; margin-bottom: 0px;
+    }
+    .parallax1 {
+        background-color: #dbdbdb;
+        /* The image used */
+
+        /* Set a specific height */
+        min-height: 75vh;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: scroll;      
+        }    
+    
+    
+    .parallax2 {
+        background-color: #dbdbdb;
+        /* The image used */
+
+        /* Set a specific height */
+        min-height: 70vh;
+  
+        /* Create the parallax scrolling effect */
+        background-attachment: scroll;   
+        }
+    
+          .parallax video {
+            position: fixed;
+            width: auto;
+            height: 100%;
+            max-width: none;
+            margin: 0px;
+            left: 0%;
+        }
+    }
+    
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+      
+      
+              .flex-media iframe, .flex-media object, .flex-media embed, .flex-media video, .flex-media img{
+                  max-width:none; width:auto; height: 100%; margin-top: 0px; margin-bottom: 0px;
+    }
+
+    .parallax1 {
+        background-color: #dbdbdb;
+        /* The image used */
+        /* Set a specific height */
+        min-height: 75vh;
+        /* Create the parallax scrolling effect */
+        background-attachment: scroll;
+      }    
+
+    .texto-parallax{
+        width: 100%;
+        background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 90%, rgba(0,0,0,0.9) 100%);
+        height: 70vh;
+        padding: 41vh 25px 2px 35px;
+    }      
+      
+      
+    .parallax1 .texto-parallax{
+        width: 100%;
+        background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 90%, rgba(0,0,0,0.9) 100%);
+        height: 75vh;
+        padding: 38vh 25px 2px 35px;
+    }
+      
+    .texto-parallax p {
+        max-width: 700px;
+        margin-left: 0px;
+    }
+      
+      .parallax video {
+    position: fixed;
+    width: auto;
+    height: 100%;
+    max-width: none;
+    margin: 0px;
+    left: -50%;
+}
+      
+    
+    .parallax2 {
+        background-color: #dbdbdb;
+        /* The image used */
+
+        /* Set a specific height */
+        min-height: 70vh;
+  
+        /* Create the parallax scrolling effect */
+        background-attachment: scroll;
+      }
+    
+    }
+    
+    
+    @media only screen and (max-width: 600px){
+        
+        .flex-media iframe, .flex-media object, .flex-media embed, .flex-media video, .flex-media img{
+        max-width:none; width:auto; height: 100%; margin-top: 0px; margin-bottom: 0px;
+    }
+        
+        .social-tools, .tag-list {
+            margin-left: 0% !important;
+        }
+        
+        
+            .layout--longform-full .story .byline__author, .layout--longform-full .story .dateline, .layout--longform-vertical .story .byline__author, .layout--longform-vertical .story .dateline {
+    color: #cacaca;
+}
+        
+        .infog-body br {
+            display: block;
+            margin: 15px 0;
+            content: " ";
+        }
+        
+        .infog-entrada {
+            margin-bottom: 10px;
+            margin-left: 5px;
+            margin-right: 5px;
+            font-size: 16px;
+        }
+        
+        
+        .nome{
+            font-size: 14px;
+            line-height: 20px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+        
+    .texto-parallax-mobile{
+        width: 100%;
+        padding: 10px 10px 2px 10px;
+        background-color: #505050;
+        }
+        
+    .infog-texto-corrido {
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+        
+    .infog-body img {
+        padding: 0px 0px;
+    }
+        
+    .texto-parallax p{
+        margin-left: 0%;
+        font-size: 35px;
+        line-height: 22px;
+        letter-spacing: 0.2px; 
+    }
+        
+    .parallax {
+        background-position: center ;
+
+    /* Set a specific height */
+        min-height: 95vw; 
+
+    /* Create the parallax scrolling effect */
+        background-attachment: fixed;}
+        
+    .parallax video {
+        position: relative;
+        width: auto;
+        max-width: none;
+        margin: 0px;
+        left: -40%;
+        height: 100vh;
+        }
+        
+    .buraco-video{
+        height: 100vw;
+    }
+        
+    .borboleta-total{
+        position: absolute;
+        left: 50%;
+        margin-left: -50%;
+        top: 36%;
+        }
+    
+    .icones-gee {
+        height: auto;
+        width: 95%;
+    }
+        
+        
+    .parallax1 {
+        background-color: #dbdbdb;
+        /* The image used */
+        background-image: url("https://static.publicocdn.com/Multimedia/Infografias/342/img/RTXXEM2.jpg");
+
+        /* Set a specific height */
+        min-height: 75vh;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: scroll;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        }    
+    
+    
+    .parallax2 {
+        background-color: #dbdbdb;
+        /* The image used */
+        background-image: url("https://static.publicocdn.com/Multimedia/Infografias/342/img/Large%20Blue.jpg?v1");
+
+        /* Set a specific height */
+        min-height: 70vh;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: scroll;
+        background-position: center right;
+        background-repeat: no-repeat;
+        background-size: cover;
+        }
+    }
+    
+
+    </style>
+
+
+<div id="infog-body" class="infog-body">
+    
+    <div style="background-color: white; z-index: 5; position: relative">
+        <p class="infog-subtitulo" style="font-weight: 700" >Transectos activos em Portugal</p>
+                
+                <div id="map"></div>
+
+            </div>
+    
+
+        
+
+<!-- FONTE -->
+        
+<!--
+        <div id="ficha-tecnica" style="background-color: #efefef; color: gray; font-size: 15px; text-align: center; padding-top: 10px">
+            
+            <p style="margin-bottom: 10px;"><b>FICHA TÉCNICA</b></p>
+            <p style="margin-bottom: 0px; padding-bottom: 20px; max-width: 1000px; margin: 0 auto;">   
+                
+                <b>Coordenação: </b>
+                <a href="https://www.publico.pt/autor/celia-rodrigues">Célia Rodrigues</a> 
+                
+                <b>Textos: </b> 
+                <a href="https://www.publico.pt/autor/claudia-carvalho-silva">Claudia Carvalho Silva</a>    
+                <b>Infografia: </b>
+                <a href="https://www.publico.pt/autor/catia-mendonca">Cátia Mendonça</a>, <a href="https://www.publico.pt/autor/francisco-f-lopes">Francisco Lopes</a>, <a href="https://www.publico.pt/autor/gabriela-gomez">Gabriela Gómez</a> e <a href="https://www.publico.pt/autor/jose-alves">José Alves</a>    
+                <b>Desenvolvimento web: </b>
+                <a href="https://www.publico.pt/autor/francisco-f-lopes">Francisco Lopes</a>
+                <b> Tratamento de imagem: </b> Valter Oliveira
+                <b> Fotografias: </b> Wikipedia Commons</p>
+        </div>
+-->
+        
+        <footer class="infographic-footer" style="color: #626262"> 
+            <div style="max-width: 1250px; margin: 0 auto; padding: 0px 5px">
+                <div class="fontes" style="text-align: center; width: 100%; margin-left: 0">Fonte: 
+                    Tagis
+                </div>
+            </div>
+        </footer>
+    </div>
+
+        <script>
+        
+        if( window.location.hostname.indexOf('publico.pt') != -1 ) {
+            var deferredScripts = window.deferredScripts || [];
+                 
+            deferredScripts.push(function(){
+                initInfographic();
+            });
+              } else {
+                  $(document).ready(function(){
+                    initInfographic();
+                });
+              }
+
+              function initInfographic() {  
+
+                $.when(
+                    $.getScript({
+                        url: "https://static.publicocdn.com/Multimedia/Infografias/618/script-p.js?v1",//ALTERAR MORADA
+                        cache: true 
+                    }),
+
+
+                    $.Deferred(function( deferred ){
+                      $( deferred.resolve );
+                  })
+                    ).done(function(){
+                    
+                    $(window).scroll(function() {
+                        var scrollDistance = $(window).scrollTop() + 330;
+
+                        
+                        var wa = $( window ).width();
+		// Show/hide menu on scroll
+		
+                        if (scrollDistance >= 7000 && scrollDistance <= 12000 && wa > 500) {
+                            $('.parallax').fadeIn("fast");
+                        } else if (scrollDistance >= 12000 && scrollDistance <= 19000 && wa <= 500) {
+                            $('.parallax').fadeIn("fast");
+                        } else {
+                            $('.parallax').fadeOut("fast");
+                        }
+                    }).scroll(); 
+
+
+
+            // Data gathered from http://populationpyramid.net/germany/2015/
+
+
+                 	// TO MAKE THE MAP APPEAR YOU MUST
+	// ADD YOUR ACCESS TOKEN FROM
+	// https://account.mapbox.com
+	
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaW5mb2dyYWZpYS1wdWJsaWNvIiwiYSI6ImNra3lkaXJiNTBmbnEyd3AwY2JydDZ1OTIifQ.1jw-KHQL-DgT6j93sX0BgQ';
+var w = $( window ).width();
+    
+
+    if (w > 800){
+        
+        var bounds = [
+                [-17, 36], // Southwest coordinates
+                [0, 43] // Northeast coordinates
+                ];
+        
+        var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/infografia-publico/cl0wgrvxu008114oeeav65cgd',
+                center: [-6.105890, 39.761670],
+                zoom: 3,
+            maxBounds: bounds // Set the map's geographical boundaries.
+            })}
+        else if (w > 500 && w < 800) {
+        
+            var bounds = [
+                [-17, 36], // Southwest coordinates
+                [0, 43] // Northeast coordinates
+                ];
+        
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/infografia-publico/cl0wgrvxu008114oeeav65cgd',
+                center: [-7.75, 41],
+                zoom: 3,
+                maxBounds: bounds // Set the map's geographical boundaries.
+            })}        
+            else{
+        
+            var bounds = [
+                [-17, 36], // Southwest coordinates
+                [0, 43] // Northeast coordinates
+                ];
+        
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/infografia-publico/cl0wgrvxu008114oeeav65cgd',
+                center: [-7.8, 39.6],
+                zoom: 5.6,
+                maxBounds: bounds // Set the map's geographical boundaries.
+            })};
+    
+ 
+
+    map.on('load', function () {
+
+        var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+    });
+   
+           function showPopup(e) {
+    // Updates the cursor to a hand (interactivity)
+    map.getCanvas().style.cursor = 'pointer';
+               
+               
+          popup.setLngLat(e.lngLat)
+      .setHTML(checkEmpty('<span style="font-size:17px"><b>' + e.features[0].properties.nome + '</b></span>' + '<br><hr>' + '<b>Instituição:</b> ' + e.features[0].properties.instituicao + '<br><b>Âmbito:</b> ' + e.features[0].properties.ambito + '<br><b>Área Protegida:</b> ' + e.features[0].properties.area ))
+      .addTo(map);
+               
+               
+               while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+}
+
+        
+        // Populate the popup and set its coordinates
+// based on the feature found.
+
+        popup.setLngLat(coordinates).setHTML(description).addTo(map);
+        
+  }
+
+  function hidePopup() {
+    map.getCanvas().style.cursor = '';
+    popup.remove();
+  }
+
+  function checkEmpty(info) {
+    return (info) ? info : "No data";
+  }
+
+// CHANGE: Add layer names that need to be interactive
+
+    map.on('mouseenter', 'transctos-borboletas-5cwleh', showPopup);
+    
+ // Change the cursor to a pointer when
+// the mouse is over the states layer.
+map.on('mouseenter', 'transctos-borboletas-5cwleh', function () {
+map.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change the cursor back to a pointer
+// when it leaves the states layer.
+map.on('mouseleave', 'transctos-borboletas-5cwleh', function () {
+map.getCanvas().style.cursor = '';
+    popup.remove();
+});
+
+        
+
+        
+    map.scrollZoom.disable(); // Desactiva o zoom ao scoll. Apagar para activar.
+
+    map.addControl(new mapboxgl.NavigationControl()); // Mostra os botões de zoom.
+
+    });
+
+
+    $('#infog-body').find('.tooltips').tooltipster({
+
+        anchor: 'bottom-center',
+              offset: [0, 10],
+              delay: 0,
+              animationDuration: 200,
+              plugins: ['follower'],
+              distance: 0,
+        theme: 'tooltipster-borderless',
+        'maxWidth': 500, // set max width of tooltip box
+        contentAsHTML: true, // set title content to html
+        trigger: 'custom', // add custom trigger
+        triggerOpen: { // open tooltip when element is clicked, tapped (mobile) or hovered
+               click: true,
+               tap: true,
+               mouseenter: true
+               },
+        triggerClose: { // close tooltip when element is clicked again, tapped or when the mouse leaves it
+               click: true,
+               scroll: false, // ensuring that scrolling mobile is not tapping!
+               tap: true,
+               mouseleave: true
+               }
+    });
+
+    });
+    }    
+
+    </script>
+
+    
+    
+<script src="https://static.publico.pt/files/framework/js/plugins/iframeResizer.contentWindow.min.js"></script>
+    
+<!--    ATÉ AQUI-->
+
+<br>
+<div align=center>
+<a href="4.html"><img src="previous.png" width="30"></a>
+</div>
+</body>
+</html>
